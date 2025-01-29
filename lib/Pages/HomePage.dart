@@ -55,10 +55,13 @@ class HomePage extends StatelessWidget {
       return UserTiles(
         text: userData["email"],
         onTap: () {
-          MaterialPageRoute(
-            builder : (context)  => ChatPage(receiverEmail:userData["email"],
-            ),
-          );
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder : (context)  => ChatPage(receiverEmail:userData["email"],
+                ),
+              ));
+
         },);
     } else{
       return Container();

@@ -12,9 +12,12 @@ class UserTiles extends StatelessWidget {
         decoration: BoxDecoration(color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(12)
         ),
+        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+        padding: EdgeInsets.all(15),
         child: Row(
           children: [
             Icon(Icons.person),
+            SizedBox(width: 20,),
             Text(text),
           ],
         ),
