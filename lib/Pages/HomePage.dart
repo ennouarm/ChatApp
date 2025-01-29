@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:newproj3/Components/my_drawer.dart';
 
+import '../Components/UserTiles.dart';
 import '../Services/Chat/chat_services.dart';
 import '../Services/auth/auth_service.dart';
+import 'ChatPage.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -11,6 +13,7 @@ class HomePage extends StatelessWidget {
 
   final ChatServices _chatService = ChatServices();
   final AuthService _authService = AuthService();
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +43,25 @@ class HomePage extends StatelessWidget {
         //return list view
         return ListView(
           children: snapshot.data!
-              .map<Widget>((userData) => _buildUserListItem)
+              .map<Widget>((userData) => _buildUserListItem(userData, context))
               .toList(),
         );
       },
     );
   }
-  Widget _buildUserListItem(Map<Stirng, dynamic> userData, BuildContext context){
-    return UserTiles();
+  Widget _buildUserListItem(
+      Map<String, dynamic> userData, BuildContext context){
+    if(userData["email"] != _authService.getCurrentUser()!.email){
+      return UserTiles(
+        text: userData["email"],
+        onTap: () {
+          MaterialPageRoute(
+            builder : (context)  => ChatPage(receiverEmail:userData["email"],
+            ),
+          );
+        },);
+    } else{
+      return Container();
+    }
   }
 }
